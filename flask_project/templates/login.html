@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+{% block style %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='login.css') }}">
+
+{% endblock style %}
+{% block content %}
+<div>
+    <form action="" method="POST">
+        <!-- Hidden tag is like csrf token for protection -->
+        {{ data.form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb4">Login</legend>
+            <div class="form-group">
+                {{ data.form.username.label(class="form-control-label") }}
+
+                {% if data.form.username.errors %}
+                    {{ data.form.username(class="form-control is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in data.form.username.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ data.form.username(class="form-control") }}
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ data.form.password.label(class="form-control-label") }}
+
+                {% if data.form.password.errors %}
+                    {{ data.form.password(class="form-control is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in data.form.password.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ data.form.password(class="form-control") }}
+                {% endif %}
+            </div>
+        </fieldset>
+        <div class="form-group mb-3">
+            {{ data.form.submit(class="btn btn-primary mt-2") }}
+        </div>
+    </form>
+</div>
+<!-- Want to Register ? -->
+<div class="border-top pt-3">
+    <small class="text-muted">
+        Need an Account ? <a class="ml-2" href="{{ url_for('register') }}">Register</a>
+    </small>
+</div>
+{% endblock content %}
