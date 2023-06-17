@@ -1,28 +1,31 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Home</title>
-</head>
-<body>
-    <h1>Welcome, {{ current_user.username }}</h1>
-    <h2>Create a New Post</h2>
-    <form method="POST" action="{{ url_for('home') }}">
-        {{ form.csrf_token }}
-        {{ form.content.label }} {{ form.content }}
-        {{ form.privacy.label }} {{ form.privacy }}
-        <button type="submit">Post</button>
-    </form>
-    <h2>Posts</h2>
-    {% for post in posts %}
-        <div>
-            <p>{{ post.content }}</p>
-            <p>Privacy: {{ post.privacy }}</p>
-            <p>Posted by: {{ post.user.username }}</p>
-            {% if post.user_id == current_user.id %}
-                #<a href="{{ url_for('delete_post', post_id=post.id) }}">Delete</a>
-                #<a href="{{ url_for('update_post', post_id=post.id) }}">Update</a>
-            {% endif %}
-        </div>
-    {% endfor %}
-</body>
-</html>
+{% extends "layout.html" %} 
+
+{% block styles %}
+ <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='home.css') }}">
+ {% endblock %}
+
+{% block content %}
+
+ <div class="container">
+        <h1 class="text-light">Welcome To {{ current_user.username }} Page</h1>
+        {% if posts %}
+            <div class="row">
+                {% for post in posts %}
+                    <div class="col-md-6 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                        <p class="card-text">{{ post.content }}</p>
+                        <p class="card-text"><small class="text-muted">Privacy: {{ post.privacy }}</small></p>
+                            </div>
+                        </div>    
+                    </div>    
+
+            {% endfor %}
+        {% else %}
+            <p class="empty-posts">No posts found.</p>
+        {% endif %} 
+        <div class="d-flex justify-content-center">
+            <a class="btn btn-outline-light py-0 m-5 w-50" href="{{ url_for('post') }}"  style="text-decoration: none;font-size: 1.5rem;">Create a new post</a>
+        </div>    
+    </div>
+{% endblock %}

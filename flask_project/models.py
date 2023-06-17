@@ -24,6 +24,7 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True, nullable=False)
     email = db.Column(db.String(120), index=True, unique=True, nullable=False)
+    image_file = db.Column(db.String(20), nullable = False, default=('default.png'))
     password = db.Column(db.Text, nullable=False)
     gender = db.Column(db.String(6))
     birth_date = db.Column(db.DateTime)
@@ -71,15 +72,18 @@ class User(db.Model, UserMixin):
     def is_friend_request_received_from(self, user):
         return self.friend_requests_received.filter(friend_requests.c.sender_id == user.id).count() > 0
 
-class Post(db.Model):
+class Post(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String(140))
     privacy = db.Column(db.String(20), nullable=False)
-    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.now())
+    # timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    # author = db.relationship('User', backref='posts')
 
     def __repr__(self):
-        return '<Post {}>'.format(self.body) 
+        return '<Post {}>'.format(self.body)
+       
 
 # class Post(db.Model):
 #     id = db.Column(db.Integer, primary_key=True)

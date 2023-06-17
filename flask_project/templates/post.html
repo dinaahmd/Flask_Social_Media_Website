@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+
+{% block styles %}
+ <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='post.css') }}">
+ {% endblock %}
+
+{% block content %}
+
+ <h1>Post Form</h1>
+    <form method="POST" action="{{ url_for('post') }}">
+        {{ data.form.csrf_token }}
+        <div>
+            {{ data.form.content.label }} {{ data.form.content(size=30) }}
+        </div>
+        <div>
+            {{ data.form.privacy.label }} {{ data.form.privacy }}
+        </div>
+        <div>
+            {{ data.form.submit }}
+        </div>
+    </form>
+
+{% endblock  %}
