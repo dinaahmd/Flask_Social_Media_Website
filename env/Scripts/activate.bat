@@ -8,7 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set VIRTUAL_ENV=D:\ITI 3 Months\Flask\Project\Flask Project\env
+set VIRTUAL_ENV=C:\Users\lenovo\Desktop\SocialProject\Flask_Social_Media_Website\env
 
 if not defined PROMPT set PROMPT=$P$G
 

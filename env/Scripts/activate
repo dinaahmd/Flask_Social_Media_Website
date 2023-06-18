@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="D:\ITI 3 Months\Flask\Project\Flask Project\env"
+VIRTUAL_ENV="C:\Users\lenovo\Desktop\SocialProject\Flask_Social_Media_Website\env"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

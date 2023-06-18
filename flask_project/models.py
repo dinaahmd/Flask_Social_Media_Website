@@ -25,9 +25,11 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(64), index=True, unique=True, nullable=False)
     email = db.Column(db.String(120), index=True, unique=True, nullable=False)
     password = db.Column(db.Text, nullable=False)
-    gender = db.Column(db.String(6))
-    birth_date = db.Column(db.DateTime)
+    image_file = db.Column(db.String(20), nullable = False, default=('default.png'))
+    gender = db.Column(db.String(6), nullable=False)
+    birth_date = db.Column(db.DateTime, nullable=False)
     posts = db.relationship('Post', backref='author', lazy='dynamic')
+
     
     friend_requests_sent = db.relationship(
         'User', secondary=friend_requests,
